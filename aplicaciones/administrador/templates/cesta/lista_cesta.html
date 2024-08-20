@@ -1,0 +1,157 @@
+{% extends 'super/base_tienda.html' %}
+
+{% load static %}
+
+{% block head %}
+
+	<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+	<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+	<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+	<script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+
+	<link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+	<link rel="stylesheet"
+	      href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+	<script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+	<script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+	<link href="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet"/>
+	<script src="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+
+	<script src="{% static 'lib/moment-2.25.3/moment-with-locales.js' %}"></script>
+	<script src="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js' %}"></script>
+	<link href="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet"/>
+
+	<script src="{% static 'cesta/js/form.js' %}"></script>
+	<script src="{% static 'cesta/js/lista.js' %}"></script>
+	<script src="{% static 'js/functions.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+	<!--incluye el sidebar -->
+	{% include 'cesta/header.html' %}
+	<!-- Finaliza Header -->
+
+	<!-- Comienza barra secundaria redireccionamiento -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="{% url 'administrador:super_lista' %}">Volver a Tienda<i
+									class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="{% url 'administrador:cesta_lista' %}">Cesta de compra</a><i
+									class="ti-arrow-right"></i></li>
+							<li class="active"><a href="{% url 'administrador:favoritos_lista' %}">Sección de
+								Favoritos</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Finaliza barra secundaria redireccionamiento -->
+
+	<!-- Form -->
+	<!-- Comienza cart individual -->
+
+	<div class="shopping-cart">
+		<div class="checkout-form text-center">
+			<p>Debido a que el peso de fruta es aproximado, el precio final puede variar solo en el caso de llevar fruta en el pedido,</p>
+			<p>el ticket del peso de la Fruta se añadirá a su compra. Estamos disponibles para cualquier consulta.</p>
+		</div>
+		<br>
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<!-- Comienza la Tabla -->
+					<table class="table shopping-summery" id="datos_cesta">
+						<thead>
+						<tr class="main-hading">
+							<th class="text-center" scope="col" style="width: 20%;">Imagen</th>
+							<th class="text-center" scope="col" style="width: 20%;">Producto</th>
+							<th class="text-center" scope="col" style="width: 15%;">Opciones</th>
+							<th class="text-center" scope="col" style="width: 10%;">Precio</th>
+							<th class="text-center" scope="col" style="width: 15%;">Cantidad</th>
+							<th class="text-center" scope="col" style="width: 10%;">Subtotal</th>
+							<th class="text-center testLink" scope="col" style="width: 5%;">Eliminar</th>
+							<th class="text-center"></th>
+						</tr>
+						</thead>
+						<tbody>
+
+						<!-- insertamos las columnas -->
+
+						</tbody>
+					</table>
+					<!-- finaliza la tabla -->
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				{%  csrf_token %}
+				<div class="col-12">
+					<div class="form-group message">
+						<label>¿Quieres agregar alguna nota a tu pedido?</label>
+						<textarea id="mensaje"></textarea>
+					</div>
+				</div>
+				<div class="col-12">
+					<!-- resumen de cuenta -->
+					<div class="total-amount">
+						<div class="row">
+							<div class="col-lg-8 col-md-5 col-12">
+								<div class="left">
+									<form action="">
+										<ul>
+											<div class="form-group">
+												<label>Fecha de venta: </label>
+											</div>
+											<li>Datos del cliente</li>
+											<li>Nombre : <span>{{ nombre }} {{ apellidos }}</span></li>
+											<li>Dirección : <span>{{ direccion }}</span></li>
+											<li>Población : <span>{{ poblacion }}</span></li>
+											<li>Correo : <span>{{ email }}</span></li>
+											<li>Teléfono : <span>{{ telefono }}</span></li>
+											<br>
+										</ul>
+									</form>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-7 col-12">
+								<div class="right">
+									<ul>
+										<li class="last">Total a pagar : <span><h3
+												id="total">{{ total }}&nbsp;€</h3></span></li>
+									</ul>
+									<h3 id="total"></h3>
+									<br>
+									<div class="button5">
+										<a class="btn guardar" rel="guardar">Confirmar la compra</a>
+										<a href="{% url 'administrador:super_lista' %}" class="btn">Continua
+											comprando</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="checkout-form text-center">
+			<p>El porte de su pedido es gratuito para compras superiores a 25 €, si el importe de compra es menor a esta cantidad </p>
+			<p>se sumará a su compra 3 € de porte, téngalo en cuenta cuando prepare su Cesta.</p>
+		</div>
+					</div>
+					<!-- finaliza resumen de cuenta -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- incluye el footer -->
+	{% include 'super/footer_tienda.html' %}
+
+{% endblock %}

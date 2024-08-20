@@ -1,0 +1,55 @@
+{% load static %}
+
+<!-- Comienza el sidebar -->
+<div class="shop-sidebar">
+	<!-- Comienza el sidebar Selector de categorías -->
+	<div class="single-widget category" >
+		<h3 class="title">Categorías</h3>
+		<ul class="categor-list">
+			{% for categoria in categorias %}
+				<li>
+					<a href="{% url 'administrador:super_lista_id' categoria.id %}">{{ categoria.nombre }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<!-- Acaba el sidebar Selector de categorías -->
+	<!-- Comienza el sidebar Selector de subcategorías -->
+	<div class="single-widget category">
+		<h3 class="title">Subcategorías</h3>
+		<ul class="categor-list">
+			{% for subcategoria in subcategorias %}
+				<li>
+					<a href="{% url 'administrador:super_lista_id' subcategoria.nombre %}">{{ subcategoria.nombre }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<!-- Acaba el sidebar Selector de categorías -->
+
+	<!-- Comienza el sidebar de las ofertas -->
+	<div class="single-widget recent-post">
+		<h3 class="title">Ofertas</h3>
+		<!-- Itera Post -->
+		{% for oferta in ofertas %}
+		<div class="single-post first">
+			<div class="image">
+				<img src="{{ oferta.imagen.url }}" alt="#">
+			</div>
+			<div class="content">
+				<h5><a href="{% url 'administrador:muestra_oferta_lista'%}">{{ oferta.nombre }}</a></h5>
+				<p class="price">{{ oferta.pvp }}&nbsp;€</p>
+				<ul class="reviews">
+					<li class="yellow"><i class="ti-star"></i></li>
+					<li class="yellow"><i class="ti-star"></i></li>
+					<li class="yellow"><i class="ti-star"></i></li>
+					<li><i class="ti-star"></i></li>
+					<li><i class="ti-star"></i></li>
+				</ul>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<!-- Acaba el sidebar de las ofertas -->
+</div>
+

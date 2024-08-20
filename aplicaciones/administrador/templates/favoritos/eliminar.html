@@ -1,0 +1,55 @@
+{% extends 'super/base_tienda.html' %}
+{% load static %}
+
+{% block head %}
+	<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+	{% include 'favoritos/header.html' %}
+
+	<br>
+	<form>
+		<!-- Comienza el panel eliminar  -->
+		<section class="shop-newsletter section">
+			<div class="container">
+				<div class="inner-top">
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2 col-12">
+							<!-- Start Newsletter Inner -->
+							<div class="inner">
+								<h4><i class="ti-na"></i>&nbsp;&nbsp;Quitar de Favoritos</h4>
+								<p> ¿Quiere quitar de Favoritos el producto {{ nombre }}?</p>
+								<div class="button5">
+									<a href="{% url 'administrador:favoritos_lista' %}" class="btn btn_eliminar" value="{{ object.id_producto }}" style="color: white;">Eliminar</a>
+									<a href="{% url 'administrador:favoritos_lista' %}" class="btn" style="color: white;">Cancelar</a>
+								</div>
+							</div>
+							<!-- End Newsletter Inner -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="shop-newsletter section">
+			{#debe estar vacía#}
+		</section>
+		<!-- End Shop Newsletter -->
+	</form>
+
+	{% include 'super/footer_tienda.html' %}
+
+	<script type="application/javascript">
+        $('.btn_eliminar').click(function (e) {
+			e.preventDefault();
+            let parameters = {
+                'action': 'eliminar_favoritos'
+            };
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de eliminar el producto?', parameters, function(){
+                location.href = '{{ lista_url }}';
+            });
+        });
+	</script>
+
+{% endblock %}

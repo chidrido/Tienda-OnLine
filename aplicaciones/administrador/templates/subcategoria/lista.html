@@ -1,0 +1,46 @@
+{% extends 'lista.html' %}
+{% load static %}
+{% block head_list %}
+	<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet">
+	<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet">
+	<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+	<script src="{% static 'subcategoria/js/list.js' %}"></script>
+{% endblock %}
+
+{% block columns %}
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="form-group">
+				<label for="exampleFormControlSelect1-sm">Seleccione la Subcategoría</label>
+				<select class="form-control select2" id="select_cat" style="width: 100%;">
+					<option value="Ayala">-----------</option>
+					{% for cat in categorias %}
+						<option value="{{ cat.id }}">{{ cat.nombre }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<tr>
+		<th scope="col" style="width: 10%;">Nro</th>
+		<th scope="col" style="width: 30%;">Nombre</th>
+		<th scope="col" style="width: 20%;">Categoría</th>
+		<th scope="col" style="width: 20%;">Descripción</th>
+		<th scope="col" style="width: 20%;">Opciones</th>
+	</tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block javascript %}
+	<script type="application/javascript">
+		$(function (){
+
+		})
+	</script>
+
+{% endblock %}

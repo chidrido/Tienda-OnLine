@@ -1,0 +1,111 @@
+{% load static %}
+
+<aside class="main-sidebar elevation-4" id="barra_nav_lateral">
+    <a class="brand-link">
+        <span class="brand-text" id="logo_sidebar">Famisuper</span>
+    </a>
+    <div class="sidebar" id="opciones_nav_principal">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{% url 'administrador:panel_control' %}" class="nav-link">
+                        <i class="nav-icon fas fa-chart-line"></i>
+                        <p>
+                            Panel de Control
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'administrador:venta_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Pedidos
+	                        <span></span>
+	                        <span class="badge badge-info">{{ pendientes }}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'administrador:producto_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-truck-loading"></i>
+                        <p>
+	                        Productos
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'administrador:oferta_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-percent"></i>
+                        <p>
+	                        Ofertas
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'administrador:gestiona_favoritosLista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-heart"></i>
+                        <p>
+	                        Favoritos
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'administrador:gestiona_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-solid fa-check"></i>
+                        <p>
+	                        Gestionar
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'administrador:importar_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-solid fa-file-import"></i>
+                        <p>
+                            Importar
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'administrador:categoria_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-solid fa-box"></i>
+                        <p>
+                            Categorías
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'administrador:subcategoria_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Subcategorías
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'administrador:cliente_lista' %}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Clientes
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'usuario:usuario_lista' %}" class="nav-link">
+	                    <i class="nav-icon fas fa-user-circle"></i>
+                        <p>
+                            Usuarios
+                        </p>
+                    </a>
+                </li>
+	            <li class="nav-item">
+                    <a href="{% url 'reporte:venta_reporte' %}" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>
+                            Reporte de Ventas
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

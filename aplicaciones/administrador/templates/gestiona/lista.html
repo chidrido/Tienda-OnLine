@@ -1,0 +1,184 @@
+{% extends 'lista_sinBotones.html' %}
+{% load static %}
+{% block head_list %}
+	<script src="{% static 'gestiona/js/list.js' %}"></script>
+	<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet">
+	<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet">
+	<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+{% endblock %}
+
+{% block columns %}
+	<div class="card-body">
+	<div class="row">
+
+		<div class="col-lg-3">
+			<label>Categorías</label>
+			&nbsp;&nbsp;{{ form.categorias }}&nbsp;&nbsp;
+		</div>
+		<div class="col-lg-3">
+			<label>Subcategorías</label>
+			&nbsp;&nbsp;{{ form.subcategorias }}&nbsp;&nbsp;
+		</div>
+		<div class="col-lg-6">
+			<br>
+			<div class="form-inline">
+				<a href="{{ lista_url }}" class="btn btn-success btn-flat btn_nuevo_registro" style="margin-top: 6px;">
+					<i class="fas fa-sync"></i> Actualizar
+				</a>
+				<a href="{{ crear_url }}" class="btn btn-primary btn-flat" style="margin-top: 6px; margin-left: 3px;">
+					<i class="fas fa-plus"></i> Nuevo registro
+				</a>
+				<a href="#" class="btn btn-primary btn-flat btn_todo" style="margin-top: 6px; margin-left: 3px;">
+					<i class="fas fa-eye"></i> Mostrar Todo
+				</a>
+			</div>
+		</div>
+	</div>
+	<tr>
+		<th scope="col" style="width: 3%;">Nro</th>
+		<th scope="col" style="width: 30%;">Nombre</th>
+		<th scope="col" style="width: 10%;">Imagen</th>
+		<th scope="col" style="width: 10%;">Precio</th>
+		<th scope="col" style="width: 10%;">Cuartos</th>
+		<th scope="col" style="width: 10%;">Ayala</th>
+		<th scope="col" style="width: 10%;">Oferta</th>
+		<th scope="col" style="width: 70%;">Act/Desact</th>
+		<th scope="col" style="width: 10%;">Opciones</th>
+	</tr>
+{% endblock %}
+
+{% block javascript %}
+	<script>
+        let select_subcategoria = $('select[name="subcategorias"]');
+        $(function () {
+
+            $('.select2').select2({
+                theme: "bootstrap4",
+                language: 'es'
+            });
+
+            $('select[name="categorias"]').on('change', function () {
+                let id = $(this).val();
+                let options = '<option value="">--------------------</option>';
+                if (id === '') {
+                    select_subcategoria.html(options);
+                    return false;
+                }
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: {
+                        'action': 'busca_subcategoria',
+                        'id': id
+                    },
+                    dataType: 'json',
+                }).done(function (data) {
+                    if (!data.hasOwnProperty('error')) {
+                        select_subcategoria.html('').select2({
+                            theme: "bootstrap4",
+                            language: 'es',
+                            data: data
+                        });
+                        /*$.each(data, function (key, value) {
+                            options += '<option value="' + value.id + '">' + value.name + '</option>';
+                        });*/
+                        return false;
+                    }
+                    message_error(data.error);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+                    //select_products.html(options);
+                });
+            });
+
+            select_subcategoria.on('change', function () {
+                let value = select_subcategoria.select2('data')[0];
+            });
+
+            // función para activar/desactivar producto
+            $('#datos_tabla tbody').on('change', 'input[name="activar"]', function () {
+                let checked = this.checked;
+                let valor = "";
+                console.log(checked);
+
+                $(this).parents("tr").find("td:eq(0)").each(function () {
+                    valor = $(this).html();
+                });
+                console.log(valor);
+                console.log(checked);
+                let parametros = {
+                    'action': 'selecciona_checkbox',
+                    'checked': checked,
+                    'valor': valor,
+                };
+                modal_noRedirect(window.location.pathname, 'Gestor de Productos', '¿Quieres Activar/Desactivar este Producto?', parametros, function () {
+
+                });
+            });
+
+            // función para quitar/poner ofertas
+            $('#datos_tabla tbody').on('change', 'input[name="oferta"]', function () {
+                let checked = this.checked;
+                let valor = "";
+                console.log(checked);
+
+                $(this).parents("tr").find("td:eq(0)").each(function () {
+                    valor = $(this).html();
+                });
+                console.log(valor);
+                console.log(checked);
+                let parametros = {
+                    'action': 'selecciona_checkboxoferta',
+                    'checked': checked,
+                    'valor': valor,
+                };
+                modal_noRedirect(window.location.pathname, 'Gestor de Productos', '¿Quieres añadir/quitar de Oferta?', parametros, function () {
+
+                });
+            });
+
+            // función para quitar/poner productos Ayala
+            $('#datos_tabla tbody').on('change', 'input[name="especial"]', function () {
+                let checked = this.checked;
+                let valor = "";
+                console.log(checked);
+
+                $(this).parents("tr").find("td:eq(0)").each(function () {
+                    valor = $(this).html();
+                });
+                console.log(valor);
+                console.log(checked);
+                let parametros = {
+                    'action': 'selecciona_especial',
+                    'checked': checked,
+                    'valor': valor,
+                };
+                modal_noRedirect(window.location.pathname, 'Gestor de Productos', '¿Quieres añadir/quitar producto Ayala?', parametros, function () {
+
+                });
+            });
+
+            // función para añadir opción de cuartos
+            $('#datos_tabla tbody').on('change', 'input[name="cuartos"]', function () {
+                let checked = this.checked;
+                let valor = "";
+                console.log(checked);
+
+                $(this).parents("tr").find("td:eq(0)").each(function () {
+                    valor = $(this).html();
+                });
+                console.log(valor);
+                console.log(checked);
+                let parametros = {
+                    'action': 'selecciona_cuartos',
+                    'checked': checked,
+                    'valor': valor,
+                };
+                modal_noRedirect(window.location.pathname, 'Gestor de Productos', '¿Quieres añadir/quitar opción Cuartos?', parametros, function () {
+                });
+            });
+
+        });
+	</script>
+{% endblock %}

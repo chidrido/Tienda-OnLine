@@ -1,0 +1,206 @@
+{% extends 'lista.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block head_list %}
+	<link href="{% static 'lib/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet"/>
+	<script src="{% static 'lib/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+	<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+	<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+	<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+	<script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+
+	<script src="{% static 'lib/moment-2.25.3/moment-with-locales.js' %}"></script>
+	<script src="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js' %}"></script>
+	<link href="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet"/>
+
+	<link href="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet"/>
+	<script src="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+
+	<script src="{% static 'ventas/js/form.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+	<form id="frmVenta" method="post">
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">
+					{% if action == 'add' %}
+						<i class="fas fa-plus"></i>
+					{% else %}
+						<i class="fas fa-edit"></i>
+					{% endif %}
+					{{ titulo }}
+				</h3>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="card card-secondary">
+							<div class="card-header">
+								<h3 class="card-title"><i class="fas fa-boxes"></i> Detalle de productos</h3>
+							</div>
+							<div class="card-body">
+								<label>Buscador por nombre:</label>
+								<div class="input-group">
+									<select class="form-control select2" name="buscar_nombre"></select>
+									{#									<input type="text" class="form-control" autocomplete="off" maxlength="50"#}
+									{#									       placeholder="Introduce la descripción" name="buscarProducto">#}
+									<div class="input-group-append">
+										<button class="btn btn-primary dropdown-toggle" type="button"
+										        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Opciones
+										</button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item btnBuscarProducto">
+												<i class="fa fa-search"></i>Buscar Productos
+											</a>
+											<a class="dropdown-item btnLimpiarBusqueda">
+												<i class="fa fa-times"></i>Limpiar Productos
+											</a>
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="form-group">
+									<label>Buscador por código de barras:</label>
+									<div class="input-group">
+										<select class="form-control select2" style="width: 100%;"
+										        name="buscar_codigo"></select>
+									</div>
+								</div>
+								<hr>
+								<button type="button" class="btn btn-danger btn-xs btn-flat btnBorrarTodo">
+									<i class="fas fa-trash"></i> Eliminar toda la cesta
+								</button>
+								<hr>
+								<!-- llamada a tabla tblProductos -->
+								<table class="table table-bordered table-hover" id="tblProductos">
+									<thead>
+									<tr>
+										<th>Eliminar</th>
+										<th>Producto</th>
+										<th>Categoría</th>
+										<th>PVP</th>
+										<th>Cantidad</th>
+										<th>Subtotal</th>
+									</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="card card-secondary">
+							<div class="card-header">
+								<h3 class="card-title"><i class="fas fa-shopping-cart"></i> Datos de la factura</h3>
+							</div>
+							<div class="card-body">
+								<input type="hidden" name="action" value="{{ action }}">
+								<div class="form-group">
+									<label>Fecha de venta:</label>
+									{{ form.date_joined }}
+								</div>
+								<div class="form-group">
+									<label>Cliente:</label>
+									<div class="input-group">
+										{{ form.cliente }}
+										<button class="btn btn-success btn-flat btnAgregarCliente" type="button">
+											<i class="fas fa-user-plus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>Total:</label>
+									{{ form.subtotal }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button type="submit" class="btn btn-primary btn-flat">
+					<i class="fas fa-save"></i> Guardar registro
+				</button>
+				<a href="{{ list_url }}" class="btn btn-danger btn-flat">
+					<i class="fas fa-times"></i> Cancelar
+				</a>
+			</div>
+		</div>
+	</form>
+
+	<!-- Modal para crear cliente -->
+	<div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<form id="frmCliente" enctype="multipart/form-data" method="post">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">
+							<b><i class="fas fa-user-plus"></i>
+								Nuevo registro de cliente
+							</b>
+						</h5>
+						<button type="button" class="btn-close btnCerrar" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						{% for field in frmCliente.visible_fields %}
+							<div class="form-group">
+								<label for="email">{{ field.label }}:</label>
+								<!-- llamada a la librería widget-tweaks -->
+								{{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+							</div>
+						{% endfor %}
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary btn-block btn-flat">
+							<i class="fas fa-save"></i>&nbsp;Guardar Cliente
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- Modal del buscador -->
+	<div class="modal fade" id="modalBuscador" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">
+						<i class="fa fa-search"></i>Búsqueda de Productos
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table class="table table-bordered table-hover" id="tblBuscarProductos">
+						<thead>
+						<tr>
+							<th>Producto</th>
+							<th>Categoría</th>
+							<th>PVP</th>
+							<th>Imagen</th>
+							<th>Stock</th>
+							<th>Opciones</th>
+						</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+        ventas.items.productos = {{ det|safe }};
+        ventas.list();
+	</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'lista.html' %}
+{% load static %}
+{% block head_list %}
+	<script src="{% static 'import_csv/js/list.js' %}"></script>
+	<script src="{% static 'import_csv/js/form.js' %}"></script>
+	<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}
+{% block columns %}
+	<a class="btn btn-primary btn-flat btn_nuevo_registro" id="import_csv">
+		<i class="fas fa-file-import"></i> Importar CSV
+	</a>
+	<br>
+	<br>
+	<tr>
+		<th scope="col">Codigo</th>
+		<th scope="col">Nombre</th>
+		<th scope="col">Categoría</th>
+		<th scope="col">Subcategoría</th>
+		<th scope="col">Imagen</th>
+		<th scope="col">Precio</th>
+		<th scope="col">Stock</th>
+		<th scope="col">Agregar</th>
+		<th scope="col">Opciones</th>
+	</tr>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

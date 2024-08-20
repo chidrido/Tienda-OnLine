@@ -1,0 +1,297 @@
+{% load static %}
+<!-- Muestra ofertas por categorías -->
+<div class="product-area section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title">
+					<h2>{{ oferta_cat_titulo }}</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="row">
+				<div class="col-12">
+					<div class="product-info">
+						<div class="nav-main">
+							<!-- Navegador de categorías -->
+							<ul class="nav nav-tabs" id="myTab" role="tablist">
+								{% for c in categorias %}
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#{{ c.nombre }}"
+									                        role="tab">{{ c.nombre }}</a></li>
+								{% endfor %}
+							</ul>
+							<!--/ Finaliza Navegador de categorías -->
+						</div>
+						<div class="tab-content" id="myTabContent">
+							<!-- Panel de categorías -->
+							<div class="tab-pane fade show active" role="tabpanel">
+								<div class="tab-single">
+									<div class="row">
+										{% for i in todo_oferta %}
+											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+												<div class="single-product">
+													<div class="product-img">
+														<a>
+															<img src="{{ i.imagen.url }}">
+														</a>
+														<div class="button-head">
+															<div class="product-action">
+																<a data-toggle="modal" data-target="#exampleModal"
+																   title="Pulse para ver" value="{{ i.id }}">
+																	<i class="ti-eye btn_modal"
+																	   value="{{ i.id }}"></i><span>Mirar el producto</span></a>
+																{% if user.is_authenticated %}
+																	<a title="Pulse para agregar" value="{{ i.id }}">
+																		<i class=" ti-heart mr-1 btn_agregarFavoritos"
+																		   value="{{ i.id }}"></i><span>Añadir a favoritos</span></a>
+																{% else %}
+																	<a title="Wishlist"><i
+																			class=" ti-heart mr-1"></i><span>Añadir a favoritos</span></a>
+																{% endif %}
+															</div>
+															<div class="product-action-2">
+																{% if user.is_authenticated %}
+																	<a href="{% url 'administrador:super_lista' %}"
+																	   title="Add to cart" class="agregar_cesta"
+																	   value="{{ i.id }}">Añadir a la cesta</a>
+																{% else %}
+																	<a title="Add to cart">Añadir a la cesta</a>
+																{% endif %}
+															</div>
+														</div>
+													</div>
+													<div class="product-content">
+														<h3><a>{{ i.nombre }}</a></h3>
+														<div class="product-price">
+															<span>{{ i.pvp }}&nbsp;€</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+							<!--/ Finaliza panel de categorías -->
+							<!-- Panel de categorías -->
+							{% for cat in categorias %}
+								<div class="tab-pane fade" id="{{ cat.nombre }}" role="tabpanel">
+									<div class="tab-single">
+										<div class="row">
+											{% if forloop.counter == 1 %}
+												{{ counter }}
+												{% for i in alimentacion_cat %}
+													<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+														<div class="single-product">
+															<div class="product-img">
+																<a>
+																	<img src="{{ i.imagen.url }}">
+																</a>
+																<div class="button-head">
+																	<div class="product-action">
+																		<a data-toggle="modal"
+																		   data-target="#exampleModal"
+																		   title="Pulse para ver" value="{{ i.id }}">
+																			<i class="ti-eye btn_modal"
+																			   value="{{ i.id }}"></i><span>Mirar el producto</span></a>
+																		{% if user.is_authenticated %}
+																			<a title="Pulse para agregar"
+																			   value="{{ i.id }}">
+																				<i class=" ti-heart mr-1 btn_agregarFavoritos"
+																				   value="{{ i.id }}"></i><span>Añadir a favoritos</span></a>
+																		{% else %}
+																			<a title="Wishlist"><i
+																					class=" ti-heart mr-1"></i><span>Añadir a favoritos</span></a>
+																		{% endif %}
+																	</div>
+																	<div class="product-action-2">
+																		{% if user.is_authenticated %}
+																			<a href="{% url 'administrador:super_lista' %}"
+																			   title="Add to cart" class="agregar_cesta"
+																			   value="{{ i.id }}">Añadir a la cesta</a>
+																		{% else %}
+																			<a title="Add to cart">Añadir a la cesta</a>
+																		{% endif %}
+																	</div>
+																</div>
+															</div>
+															<div class="product-content">
+																<h3><a>{{ i.nombre }}</a></h3>
+																<div class="product-price">
+																	<span>{{ i.pvp }}&nbsp;€</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												{% endfor %}
+											{% elif forloop.counter == 2 %}
+												{% for i in bebidas_cat %}
+													<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+														<div class="single-product">
+															<div class="product-img">
+																<a>
+																	<img src="/media/{{ i.imagen }}">
+																</a>
+																<div class="button-head">
+																	<div class="product-action">
+																		<a data-toggle="modal"
+																		   data-target="#exampleModal"
+																		   title="Quick View"
+																		   value="{{ i.producto_id }}"><i
+																				class=" ti-eye">
+																		</i><span>Mirar el producto</span></a>
+																		<a title="Wishlist" value="{{ i.producto_id }}">
+																			<i class=" ti-heart "></i><span>Añadir a favoritos</span></a>
+																	</div>
+																	<div class="product-action-2">
+																		{% if user.is_authenticated %}
+																			<a title="Add to cart"
+																			   value="{{ i.producto_id }}">Añadir a la
+																				cesta</a>
+																		{% else %}
+																			<a title="Add to cart">Añadir a la cesta</a>
+																		{% endif %}
+																	</div>
+																</div>
+															</div>
+															<div class="product-content">
+																<h3><a>{{ i.nombre }}</a></h3>
+																<div class="product-price">
+																	<span>{{ i.pvp }}&nbsp;€</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												{% endfor %}
+											{% elif forloop.counter == 3 %}
+												{% for i in congelados_cat %}
+													<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+														<div class="single-product">
+															<div class="product-img">
+																<a>
+																	<img src="/media/{{ i.imagen }}">
+																</a>
+																<div class="button-head">
+																	<div class="product-action">
+																		<a data-toggle="modal"
+																		   data-target="#exampleModal"
+																		   title="Quick View"
+																		   value="{{ i.producto_id }}"><i
+																				class=" ti-eye">
+																		</i><span>Mirar el producto</span></a>
+																		<a title="Wishlist" value="{{ i.producto_id }}">
+																			<i class=" ti-heart "></i><span>Añadir a favoritos</span></a>
+																	</div>
+																	<div class="product-action-2">
+																		{% if user.is_authenticated %}
+																			<a title="Add to cart"
+																			   value="{{ i.producto_id }}">Añadir a la
+																				cesta</a>
+																		{% else %}
+																			<a title="Add to cart">Añadir a la cesta</a>
+																		{% endif %}
+																	</div>
+																</div>
+															</div>
+															<div class="product-content">
+																<h3><a>{{ i.nombre }}</a></h3>
+																<div class="product-price">
+																	<span>{{ i.pvp }}&nbsp;€</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												{% endfor %}
+											{% elif forloop.counter == 4 %}
+												{% for i in drogueria_cat %}
+													<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+														<div class="single-product">
+															<div class="product-img">
+																<a>
+																	<img src="/media/{{ i.imagen }}">
+																</a>
+																<div class="button-head">
+																	<div class="product-action">
+																		<a data-toggle="modal"
+																		   data-target="#exampleModal"
+																		   title="Quick View"
+																		   value="{{ i.producto_id }}"><i
+																				class=" ti-eye">
+																		</i><span>Mirar el producto</span></a>
+																		<a title="Wishlist" value="{{ i.producto_id }}">
+																			<i class=" ti-heart "></i><span>Añadir a favoritos</span></a>
+																	</div>
+																	<div class="product-action-2">
+																		{% if user.is_authenticated %}
+																			<a title="Add to cart"
+																			   value="{{ i.producto_id }}">Añadir a la
+																				cesta</a>
+																		{% else %}
+																			<a title="Add to cart">Añadir a la cesta</a>
+																		{% endif %}
+																	</div>
+																</div>
+															</div>
+															<div class="product-content">
+																<h3><a>{{ i.nombre }}</a></h3>
+																<div class="product-price">
+																	<span>{{ i.pvp }}&nbsp;€</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												{% endfor %}
+											{% elif forloop.counter == 5 %}
+												{% for i in refrigerados_cat %}
+													<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+														<div class="single-product">
+															<div class="product-img">
+																<a>
+																	<img src="/media/{{ i.imagen }}">
+																</a>
+																<div class="button-head">
+																	<div class="product-action">
+																		<a data-toggle="modal"
+																		   data-target="#exampleModal"
+																		   title="Quick View"
+																		   value="{{ i.producto_id }}"><i
+																				class=" ti-eye">
+																		</i><span>Mirar el producto</span></a>
+																		<a title="Wishlist" value="{{ i.producto_id }}">
+																			<i class=" ti-heart "></i><span>Añadir a favoritos</span></a>
+																	</div>
+																	<div class="product-action-2">
+																		{% if user.is_authenticated %}
+																			<a title="Add to cart"
+																			   value="{{ i.producto_id }}">Añadir a la
+																				cesta</a>
+																		{% else %}
+																			<a title="Add to cart">Añadir a la cesta</a>
+																		{% endif %}
+																	</div>
+																</div>
+															</div>
+															<div class="product-content">
+																<h3><a>{{ i.nombre }}</a></h3>
+																<div class="product-price">
+																	<span>{{ i.pvp }}&nbsp;€</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												{% endfor %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								<!--/ Finaliza panel de categorías -->
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Finaliza ofertas por categorías -->

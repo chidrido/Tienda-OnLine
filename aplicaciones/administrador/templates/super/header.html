@@ -1,0 +1,150 @@
+<!-- Header -->
+<header class="header shop" >
+	<br>
+	<br>
+	<br>
+	<div class="middle-inner" id="color_fondo">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-md-2 col-12">
+					<div class="mobile-nav"></div>
+				</div>
+				<!-- Comienza buscador -->
+				<div class="col-lg-8 col-md-7 col-12">
+					<div class="search-bar-top">
+						<div class="search-bar">
+							<form action="{% url 'administrador:super_lista' %}">
+								<input name="buscarProductoSuper" placeholder="Busca tus productos ... "
+								       class="form-control" maxlength="50" type="text">
+								<button class="btnn"><i class="ti-search"></i></button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- Acaba buscador -->
+				<div class="col-lg-2 col-md-3 col-12">
+					<div class="right-bar">
+						<div class="sinlge-bar">
+							<!-- icono de favoritos -->
+							<a href="{% url 'administrador:favoritos_lista' %}" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+						</div>
+
+						<div class="sinlge-bar shopping">
+							<!-- icono de usuario -->
+							{% if user.is_authenticated %}
+								<a href="#" class="single-icon"><i class="fa fa-user-circle-o"
+								                                   aria-hidden="true"></i></a>
+
+								<!-- comienza el modal del usuario -->
+
+								<div class="shopping-item">
+									<a href="{% url 'administrador:cliente_editarSuper' user.id %}">
+										<div class="dropdown-cart-header">
+											<i class="fa fa-pencil-square-o " aria-hidden="true"></i>
+											<span>Editar Perfil</span>
+										</div>
+									</a>
+									<div class="bottom">
+										<a href="{% url 'perfil:logout' %}" class="btn animate">Cerrar sesión</a>
+									</div>
+								</div>
+								<!--/ acaba el modal del usuario -->
+							{% else %}
+								<div class="sinlge-bar shopping">
+									<!-- icono de usuario -->
+									<a href="{% url 'perfil:login' %}" class="single-icon"><i
+											class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+								</div>
+							{% endif %}
+						</div>
+
+						<!-- icono de cesta -->
+						{% if user.is_authenticated %}
+							<div class="sinlge-bar shopping">
+								<a href="{% url 'administrador:cesta_lista' %}" class="single-icon"><i class="ti-bag"></i> <span
+										class="total-count">{{ cantidad }}</span></a>
+
+								<!-- comienza el modal de la cesta -->
+								<div class="shopping-item">
+									<div class="dropdown-cart-header">
+										cantidad de productos : <span>  {{ cantidad }}</span>
+										<a href="{% url 'administrador:cesta_lista' %}"></a>
+									</div>
+									<ul class="shopping-list">
+										{% csrf_token %}
+										{% for item1, item2 in lista_cesta %}
+											<li>
+												<a href="{% url 'administrador:super_lista' %}" id="etiqueta" value="{{ item1.id }}" class="removecantidad" title="Elimina el producto"><i
+														class="fa fa-remove"></i></a>
+
+												<!-- agrega la imagen -->
+												<a class="cart-img" href="#"><img src="{{ item1.imagen }}"></a>
+
+												<!-- agrega el nombre -->
+												<h4 id="nombre_prod">{{ item1.nombre }}<a href="#"></a></h4>
+
+												<p class="quantity">{{ item1.pvp }}&nbsp;x {{ item1.cant }} = {{ item1.subtotal }}<span class="amount">&nbsp;</span>€
+													{% if item1.cuartos %}
+														<span>&nbsp;({{ item1.cuartos }} Kg)</span>
+													{% endif %}
+												</p>
+											</li>
+										{% endfor %}
+									</ul>
+									<div class="bottom">
+										<div class="total">
+											<span>Total</span>
+											<span class="total-amount">{{ total }}&nbsp;€</span>
+										</div>
+										<div class="total">
+											<span class="total-amount">Realice su pedido en la sección Cesta</span>
+										</div>
+									</div>
+								</div>
+								<!--/ acaba el modal de la cesta -->
+							</div>
+						{% else %}
+							<div class="sinlge-bar shopping">
+								<a href="{% url 'perfil:login' %}" class="single-icon"><i class="ti-bag"></i> </a>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!--/ End Header -->
+
+<script type="application/javascript">
+    $(function () {
+        $('input[name="buscarProductoSuper"]').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: {
+                        'action': 'autocomplete',
+                        'term': request.term
+                    },
+                    dataType: 'json',
+                }).done(function (data) {
+                    console.log(data);
+                    if (!data.hasOwnProperty('error')) {
+                        callback(data);
+                        return false;
+                    }
+                    message_error(data.error);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+
+                });
+            },
+            delay: 500,
+            select: function (event, ui) {
+                console.log(ui.item);
+            }
+        });
+    });
+</script>

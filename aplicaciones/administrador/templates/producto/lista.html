@@ -1,0 +1,37 @@
+{% extends 'lista.html' %}
+{% load static %}
+{% block head_list %}
+	<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet">
+	<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet">
+	<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+	<script src="{% static 'producto/js/list.js' %}"></script>
+	<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}
+
+{% block columns %}
+	<div class="form-group">
+		<label for="exampleFormControlSelect1-sm">Seleccione la categoría</label>
+		<select class="form-control select2" id="select_cat" style="width: 30%;">
+			<option value="Todos">Todos los productos</option>
+			{% for cat in categorias %}
+				<option value="{{ cat.id }}">{{ cat.nombre }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<tr>
+		<th scope="col">Codigo</th>
+		<th scope="col">Nombre</th>
+		<th scope="col">Subcategoría</th>
+		<th scope="col">Imagen</th>
+		<th scope="col">Precio</th>
+		<th scope="col">Stock</th>
+		<th scope="col">Oferta</th>
+		<th scope="col">Ayala</th>
+		<th scope="col">Activ</th>
+		<th scope="col">Opciones</th>
+	</tr>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

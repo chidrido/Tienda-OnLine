@@ -1,0 +1,40 @@
+<!--------------------------- Header -------------------------->
+<header id="header" class="fixed-top d-flex align-items-center">
+	<div class="container d-flex justify-content-between">
+
+		<div class="logo">
+			<h1><a href="" id="logo_sidebar">FAMISUPER</a></h1>
+		</div>
+
+		<nav id="navbar" class="navbar">
+			<ul>
+				<li><a class="nav-link scrollto" href="{% url 'administrador:super_lista' %}">Tienda</a></li>
+				<li><a class="nav-link scrollto active" href="#">Ofertas</a></li>
+				<li>
+					{% if user.is_authenticated %}
+						<a class="nav-link scrollto" href="{% url 'administrador:favoritos_lista' %}">Favoritos</a>
+					{% else %}
+						<a class="nav-link scrollto" href="{% url 'perfil:login' %}">Favoritos</a>
+					{% endif %}
+				</li>
+				{% if user.is_authenticated %}
+					<li><a class="nav-link scrollto" href="{% url 'administrador:cesta_lista' %}">Cesta</a>
+					</li>
+				{% else %}
+					<li><a class="nav-link scrollto" href="{% url 'perfil:login' %}">Cesta</a></li>
+				{% endif %}
+				<li>
+					{% if request.user.is_authenticated %}
+						<a class="nav-link scrollto"
+						   href="{% url 'administrador:panel_control' %}">{{ request.user.username }}</a>
+					{% else %}
+						<a class="nav-link scrollto" href="{% url 'perfil:login' %}">Inicie sesión</a>
+					{% endif %}
+				</li>
+			</ul>
+			<i class="bi bi-list mobile-nav-toggle"></i>
+		</nav>
+		<!-- .navbar -->
+	</div>
+</header>
+<!-- Finaliza Header -->

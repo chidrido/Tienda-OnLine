@@ -1,0 +1,69 @@
+<nav class="main-header navbar navbar-expand" id="barra_nav_principal">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+		</li>
+		<li class="nav-item d-none d-sm-inline-block">
+			<a href="{% url 'inicio' %}" class="nav-link" id="opciones_nav_principal">Inicio</a>
+		</li>
+		<li class="nav-item d-none d-sm-inline-block">
+			<a href="{% url 'administrador:venta_lista' %}" class="nav-link" id="opciones_nav_principal">Pedidos<span class="badge badge-info navbar-badge">{{ pendientes }}</span></a>
+		</li>
+		<li class="nav-item d-none d-sm-inline-block">
+			<a href="{% url 'administrador:super_lista' %}" class="nav-link" id="opciones_nav_principal">Ir a Tienda</a>
+		</li>
+		<li class="nav-item d-none d-sm-inline-block">
+			<a href="{% url 'administrador:muestra_oferta_lista' %}" class="nav-link" id="opciones_nav_principal">Ir a Ofertas</a>
+		</li>
+	</ul>
+	<ul class="navbar-nav ml-auto">
+		{% if request.user.groups.all %}
+			<li class="nav-item dropdown">
+				<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+				   class="nav-link {% if request.user.groups.all.count > 1 %} dropdown-toggle {% endif %}">{{ request.session.group }}</a>
+				{% if request.user.groups.all.count > 1 %}
+					<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow"
+					    style="left: 0px; right: inherit;">
+						{% for g in request.user.groups.all %}
+							{% if g.id != request.session.group.id %}
+								<li><a href="{% url 'usuario:usuario_grupo' g.id %}"
+								       class="dropdown-item">{{ g.name }}</a></li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</li>
+		{% endif %}
+
+		<!-- item de  -->
+		<li class="nav-item dropdown">
+			<a class="nav-link" data-toggle="dropdown" href="#">
+				<i class="fas fa-users-cog"></i> {{ request.user.username }}
+			</a>
+			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-header">
+                        {{ request.user.last_login }}
+                    </span>
+				<div class="dropdown-divider"></div>
+				<a href="#" class="dropdown-item">
+					<i class="fas fa-edit mr-2"></i> Editar perfil
+					<span class="float-right text-muted text-sm">3 mins</span>
+				</a>
+				<div class="dropdown-divider"></div>
+				<a href="#" class="dropdown-item">
+					<i class="fas fa-lock mr-2"></i> Editar password
+					<span class="float-right text-muted text-sm">12 hours</span>
+				</a>
+				<div class="dropdown-divider"></div>
+				<a href="#" class="dropdown-item dropdown-footer">
+					<p>Este sistema te permitirá realizar diferentes actividades</p>
+				</a>
+			</div>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{% url 'perfil:logout' %}">
+				<i class="fas fa-power-off" aria-hidden="true"></i>
+			</a>
+		</li>
+	</ul>
+</nav>

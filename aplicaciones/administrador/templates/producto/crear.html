@@ -1,0 +1,41 @@
+{% extends 'form.html' %}
+{% load static %}
+{% block head_form %}
+	<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+	<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+	<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+	<script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+{% endblock %}
+
+{% block javascript %}
+	<script type="application/javascript">
+        $(function () {
+            $('select[name="cat"]').on('change', function () {
+                let id = $(this).val();
+                let select_subcat =  $('select[name="subcat"]');
+				let opciones = '<option value="">--------------------</option>';
+
+                $.ajax({                                                        // llamamos a ajax
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: {
+                        'action': 'buscar_subcat_id',
+	                    'id': id
+                    },
+                    dataType: 'json',
+                }).done(function (data) {
+                    if (!data.hasOwnProperty('error')) {
+                        $.each(data, function (key, value) {
+                            opciones += '<option value="' + value.id + '">' + value.nombre + '</option>';
+                        });
+                        return false;
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+					select_subcat.html(opciones);
+                });
+            })
+        });
+	</script>
+{% endblock %}

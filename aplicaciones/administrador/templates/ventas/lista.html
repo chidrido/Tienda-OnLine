@@ -1,0 +1,76 @@
+{% extends 'lista.html' %}
+{% load static %}
+{% block head_list %}
+	<script src="{% static 'ventas/js/list.js' %}"></script>
+
+{% endblock %}
+
+{% block columns %}
+	<div class="form-group">
+		<label for="exampleFormControlSelect1-sm">Pedidos pendientes</label>
+		<select class="form-control select2" style="width: 20%;" id="selecciona_checkbox">
+			<option value="no_hechos">Pedidos pendientes</option>
+			<option value="hechos">Pedidos hechos</option>
+			<option value="todos">Todos los pedidos</option>
+		</select>
+
+	</div>
+	<tr>
+		{#		<th scope="col" style="width: 5%;">Det</th>#}
+		<th scope="col" style="width: 5%;">Pedidos</th>
+		<th scope="col" style="width: 5%;">Nro</th>
+		<th scope="col" style="width: 15%;">Nombre</th>
+		<th scope="col" style="width: 15%;">Apellidos</th>
+		<th scope="col" style="width: 10%;">Fecha/Pedido</th>
+		<th scope="col" style="width: 20%;">Dirección</th>
+		<th scope="col" style="width: 5%;">Teléfono</th>
+		<th scope="col" style="width: 5%;">Total</th>
+		<th scope="col" style="width: 15%;">Opciones</th>
+	</tr>
+
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block javascript %}
+	<!-- modal cesta editar -->
+	<div class="modal fade" id="miModeloDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"><b><i class="fas fa-shopping-cart"></i> Consulta de
+						detalle de productos</b></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							class="ti-close" aria-hidden="true">x</span>
+					</button>
+
+				</div>
+				<!-- mensaje del pedido -->
+				<div class="text-center">
+					<span href="" id="mensaje_nota"></span>
+				</div>
+				<!-- mensaje del pedido -->
+
+				<div class="modal-body">
+					<!-- llamada a tabla tblProductos -->
+					<table class="table table-striped" id="tblDetalle">
+						<thead>
+						<tr>
+							<th>Producto</th>
+							<th>Categoría</th>
+							<th>Precio</th>
+							<th>Cantidad</th>
+							<th>Porciones</th>
+							<th>Subtotal</th>
+						</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

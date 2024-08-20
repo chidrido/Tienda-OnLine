@@ -1,0 +1,50 @@
+{% load static %}
+
+<div class="row">
+
+	{% for i in object_list %}
+
+		<div class="col-lg-4 col-md-6 col-12">
+			<div class="single-product">
+				<div class="product-img">
+					<a>
+						<img src="{{ i.imagen.url }}">
+						{% if i.oferta_checkbox == True %}
+							<span class="price-dec">Oferta</span>
+						{% elif i.especial == True %}
+							<span class="new">Ayala</span>
+						{% endif %}
+
+					</a>
+					<div class="button-head">
+						<div class="product-action">
+							<a data-toggle="modal" data-target="#exampleModal" title="Pulse para ver" value="{{ i.id }}">
+								<i class="ti-eye btn_modal" value="{{ i.id }}"></i><span>Mirar el producto</span></a>
+							{% if user.is_authenticated %}
+								<a title="Pulse para agregar" value="{{ i.id }}">
+									<i class=" ti-heart mr-1 btn_agregarFavoritos" value="{{ i.id }}"></i><span>Añadir a favoritos</span></a>
+							{% else %}
+								<a title="Wishlist"><i class=" ti-heart mr-1"></i><span>Añadir a favoritos</span></a>
+							{% endif %}
+						</div>
+						<div class="product-action-2">
+							{% if user.is_authenticated %}
+								<a href="{% url 'administrador:super_lista' %}" title="Añadir a la cesta" class="agregar_cesta" value="{{ i.id }}">Añadir a la cesta</a>
+							{% else %}
+								<a title="Add to cart">Añadir a la cesta</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="product-content">
+					<h3><a>{{ i.nombre }}</a></h3>
+					<div class="product-price">
+						<span>{{ i.pvp }}&nbsp;€</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+
+

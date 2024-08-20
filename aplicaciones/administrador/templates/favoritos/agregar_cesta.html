@@ -1,0 +1,61 @@
+{% extends 'super/base_tienda.html' %}
+
+{% load static %}
+
+{% block content %}
+
+	{% include 'favoritos/header.html' %}
+
+	<br>
+	<form>
+		<!-- Comienza el panel eliminar  -->
+		<section class="shop-newsletter section">
+			<div class="container">
+				<div class="inner-top">
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2 col-12">
+							<!-- Start Newsletter Inner -->
+							<div class="inner">
+								<h4><i class="ti-plus"></i>&nbsp;&nbsp;Añadir a la Cesta de compra</h4>
+								<p> ¿Quiere añadir a la Cesta el producto {{ nombre }}?</p>
+								<div class="button5">
+									<a href="{% url 'administrador:favoritos_lista' %}" class="btn btn_añadirCesta" value="{{ nombre }}" style="color: white;">Añadir a Cesta</a>
+									<a href="{% url 'administrador:favoritos_lista' %}" class="btn" style="color: white;">Cancelar</a>
+								</div>
+							</div>
+							<!-- End Newsletter Inner -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="shop-newsletter section">
+			{#debe estar vacía#}
+		</section>
+		<!-- End Shop Newsletter -->
+	</form>
+
+	{% include 'super/footer_tienda.html' %}
+
+	<script type="application/javascript">
+		$('.btn_añadirCesta').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: {
+                    'action': 'agregar_cesta',
+                },
+                dataType: 'json',
+                cache: true,
+            }).done(function (data) {
+                location.href = "../../lista/";
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }).always(function (data) {
+
+            });
+        });
+	</script>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+/* css propio para modificar el css original */
+
+/* barra de navegación principal */
+#barra_nav_principal{
+    background-color: #acbf60   ;
+    height: 70px;
+}
+/* barra sidebar */
+#barra_nav_lateral{
+    background-color: #507d2a   ;
+    height: 70px;
+}
+/* fuente letras logo famisuper */
+#logo_principal{
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    padding-left: 100px;
+    padding-right: 40px;
+}
+#logo_sidebar{
+    font-size: 35px;
+    color: black;
+    margin-left: 20px;
+    font-family: 'Cooper Black';
+    text-transform: none;
+}
+/* fuente letras de las ops del nav principal */
+#opciones_nav_principal{
+    color: black;
+    font-size: 20px;
+}
+p{
+    color: black;
+    font-size: 18px;
+}
+i{
+    color: black;
+}
+
+#barra_footer{
+    background-color: #21295E;
+    height: 50px
+}
+/*modifica el color de fondo del template tienda*/
+#logo_footer{
+    font-size: 25px;
+    color: white;
+    margin-left: 20px;
+    font-family: 'Cooper Black';
+    text-transform: none;
+}

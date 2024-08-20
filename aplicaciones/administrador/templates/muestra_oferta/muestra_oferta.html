@@ -1,0 +1,80 @@
+{% extends 'super/base_tienda.html' %}
+{% load static %}
+
+{% block head %}
+	<script src="{% static 'muestra_oferta/js/form.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+	<!-- incluye los cards de categorías -->
+	{% include 'muestra_oferta/header.html' %}
+	<!-- Finaliza los cards de categorías -->
+
+	<body class="js">
+	<!-- Area de inicio -->
+	<section class="hero-slider">
+		<div class="single-slider">
+			<div class="container">
+				<div class="row no-gutters">
+					<div class="col-lg-9 offset-lg-3 col-12">
+						<div class="text-inner">
+							<div class="row">
+								<div class="col-lg-7 col-12">
+									<div class="hero-text">
+										<h1><span>Listado de</span>Ofertas</h1>
+										<p>En esta sección encontrará <br> todas nuestras ofertas.</p>
+{#										<div class="button">#}
+{#											<a href="#" class="btn">Comprar ahora!</a>#}
+{#										</div>#}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Finaliza area de inicio -->
+
+	<!-- incluye los cards de categorías -->
+	{% include 'muestra_oferta/cards_cat.html' %}
+	<!-- Finaliza los cards de categorías -->
+
+	<!-- Incluye Ofertas con slides -->
+	{% include 'muestra_oferta/ofertas_slides.html' %}
+	<!-- Finaliza ofertas con slides -->
+
+{#	<!-- Start Shop Home List  -->#}
+{#	<section class="shop-home-list section">#}
+{#		<div class="container">#}
+{#			<div class="row">#}
+{##}
+{#				<!-- incluye los cards más vendidos -->#}
+{#				{% include 'muestra_oferta/colum_mas_vendido.html' %}#}
+{#				<!-- Finaliza los cards más vendidos -->#}
+{##}
+{#				<!-- incluye los cards mejores -->#}
+{#				{% include 'muestra_oferta/colum_mejores.html' %}#}
+{#				<!-- Finaliza los cards mejores -->#}
+{##}
+{#				<!-- incluye los cards más vistos -->#}
+{#				{% include 'muestra_oferta/colum_mas_vistos.html' %}#}
+{#				<!-- Finaliza los cards más vistos -->#}
+{##}
+{#			</div>#}
+{#		</div>#}
+{#	</section>#}
+{#	<!-- End Shop Home List  -->#}
+
+	<!-- Modal -->
+	{% include 'muestra_oferta/modal.html' %}
+	<!-- Finaliza Modal -->
+
+	<!-- Incluye el footer -->
+	{% include 'super/footer_tienda.html' %}
+
+	</body>
+
+{% endblock %}

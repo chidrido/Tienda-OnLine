@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<title>famisuper</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+	<!-- Favicons -->
+	<link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+	<link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	      rel="stylesheet">
+
+	<!-- Vendor CSS Files -->
+	<link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+	<link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+	<!-- Template Main CSS File -->
+	<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'css/miEstiloPropio.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="fondo_color">
+
+{% include 'headerinicio.html' %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+	<div class="container text-center text-md-left" data-aos="fade-up">
+		<h1>Bienvenido a <span style="font-family: Cooper Black">FAMISUPER</span></h1>
+		<h2>Tu tienda de confianza online</h2>
+		<a href="{% url 'administrador:super_lista' %}" class="btn-get-started scrollto">Entrar a comprar</a>
+	</div>
+</section><!-- End Hero -->
+
+<main id="main">
+
+	<!-- Comienza Sobfre Nosotros -->
+	<section id="about" class="about">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-xl-6 col-lg-7" data-aos="fade-right">
+					<img src="{% static 'assets/img/sobre_nosotros/portada_sobre_nosotros1.jpg' %}" class="img-fluid"
+					     alt="">
+				</div>
+				<div class="col-xl-6 col-lg-5 pt-5 pt-lg-0">
+					<h3 data-aos="fade-up">Satisfacer sus Necesidades</h3>
+					<p data-aos="fade-up">
+						Satisfacer sus necesidades es nuestro lema. Somos una empresa familiar con más de 20 años de experiencia.
+						Tenemos los mejores productos a los mejores precio.
+						<br>
+						Trabajamos con la reconocida marca Ayala, de origen Andaluz.
+						Fruta de la mejor Cálidad suministrada por Mercasevilla.
+						<br>
+						Visite nuestra sección de ofertas.
+						<br>
+						Ofrecemos un trato personalizado a nuestros clientes, contacte con nosotros por email, o por teléfono si lo desea.
+						Acuerde con nuestro personal la hora de llegada de su pedido.
+						<br>
+						En cuanto realice su pedido estaremos en contacto con usted desde el primer momento.
+						<br>
+						<br>
+						Repartimos a domicilio solo en el area de Santiponce.
+						El pago se realiza en su dimicilio una vez llevado su pedido. Efectivo o tarjeta.
+					</p>
+					<div class="icon-box" data-aos="fade-up">
+						<i class="bx bx-phone"></i>
+						<h4>Llamenos al teléfono: </h4>
+						<h4>955997472</h4>
+					</div>
+					<div class="icon-box" data-aos="fade-up">
+						<i class="bx bx-mail-send"></i>
+						<h4>Contacte con nosotros por correo electrónico: </h4>
+						<h4>famisuper@outlook.com</h4>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section><
+	<!-- Finaliza Sobre Nosotros -->
+
+	<!-- Comienza Servivios -->
+	<section id="services" class="services section-bg">
+		<div class="container">
+
+			<div class="section-title" data-aos="fade-up">
+				<h2>Servicios</h2>
+				<p>Repartimos en la localidad de Santiponce</p>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up"
+				     data-aos-delay="100">
+					<div class="icon-box icon-box-cyan">
+						<div class="icon"><i class="bx bx-cart"></i></div>
+						<h4 class="title"><a href="{% url 'administrador:super_lista' %}">Los productos más frescos</a></h4>
+						<p class="description">Fruta fresca de la mejor cálidad y productos de las mejores marcas</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up">
+					<div class="icon-box icon-box-pink">
+						<div class="icon"><i class="bx bx-package"></i></div>
+						<h4 class="title"><a href="{% url 'administrador:super_lista' %}">Reparto Gratuito</a></h4>
+						<p class="description">El transporte es gratuito por pedidos superiores a 25 €</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up"
+				     data-aos-delay="100">
+					<div class="icon-box icon-box-cyan">
+						<div class="icon"><i class="bx bx-face"></i></div>
+						<h4 class="title"><a href="{% url 'administrador:super_lista' %}">Servicio Personalizado</a></h4>
+						<p class="description">Estaremos en contacto desde el primer momento, solo tiene que registrarse</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up"
+				     data-aos-delay="100">
+					<div class="icon-box icon-box-cyan">
+						<div class="icon"><i class="bx bx-phone"></i></div>
+						<h4 class="title"><a href="{% url 'administrador:super_lista' %}">Atención al Cliente</a></h4>
+						<p class="description">Consulte cualquier duda al teléfono 955997472</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section><!-- Finaliza servicios -->
+
+	<!-- Comienza Contactos -->
+	<section id="contact" class="contact">
+		<div class="container">
+
+			<div class="section-title" data-aos="fade-up">
+				<h2>Contactos</h2>
+				<p>Nos encontramos en la localidad de Santiponce, en la calle Manuel Gonzalez Rodriguez, 14</p>
+				<p></p>
+			</div>
+
+			<div class="row no-gutters justify-content-center" data-aos="fade-up">
+			</div>
+			<div class="row mt-5 justify-content-center" data-aos="fade-up">
+				<div class="col-lg-10">
+					<form action="forms/contact.php" method="post" role="form" class="php-email-form">
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<input type="text" nombre="name" class="form-control" id="name"
+								       placeholder="Introduce tu nombree" required>
+							</div>
+							<div class="col-md-6 form-group mt-3 mt-md-0">
+								<input type="email" class="form-control" name="email" id="email"
+								       placeholder="Introduce tu email" required>
+							</div>
+						</div>
+						<div class="form-group mt-3">
+							<input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto">
+						</div>
+						<div class="form-group mt-3">
+							<textarea class="form-control" name="message" rows="5" placeholder="Mensaje"></textarea>
+						</div>
+						<div class="my-3">
+							<div class="loading">Loading</div>
+							<div class="error-message"></div>
+							<div class="sent-message">Tu mensaje ha sido enviado. Gracias!</div>
+						</div>
+						<div class="text-center">
+							<button type="submit">Enviar mensaje</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section><!-- Finaliza Contactos -->
+
+</main><!-- End #main -->
+
+<!-- Comienza Footer -->
+<footer id="footer">
+	<div class="container">
+		<div class="copyright">
+			<apan id="logo_footer">FAMISUPER</apan>
+		</div>
+	</div>
+</footer><!-- Finaliza Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

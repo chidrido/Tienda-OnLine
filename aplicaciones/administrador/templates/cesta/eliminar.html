@@ -1,0 +1,63 @@
+{% extends 'super/base_tienda.html' %}
+
+{% load static %}
+
+{% block content %}
+
+	{% include 'cesta/header.html' %}
+
+	<br>
+	<form>
+		<!-- Comienza el panel eliminar  -->
+		<section class="shop-newsletter section">
+			<div class="container">
+				<div class="inner-top">
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2 col-12">
+							<!-- Comienza panel botones -->
+							<div class="inner">
+								<h4><i class="ti-na"></i>&nbsp;&nbsp;Quitar de la cesta</h4>
+								<p> ¿Quiere quitar de la cesta el producto {{ object.nombre }}?</p>
+								<div class="button5">
+									<a href="{% url 'administrador:cesta_lista' %}" class="btn btn_eliminar" value="{{ object.id }}" style="color: white;">Eliminar</a>
+									<a href="{% url 'administrador:cesta_lista' %}" class="btn" style="color: white;">Cancelar</a>
+								</div>
+							</div>
+							<!-- Acaba panel botones -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="shop-newsletter section">
+			{#debe estar vacía#}
+		</section>
+		<!-- End Shop Newsletter -->
+	</form>
+
+	{% include 'super/footer_tienda.html' %}
+
+	<script type="application/javascript">
+        $('.btn_eliminar').click(function (e) {
+            let variable = $(this).attr('value');                             // obtiene id del producto
+
+            $.ajax({                                                        // llamamos a ajax
+                url: window.location.pathname,
+                type: 'POST',
+                data: {
+                    'action': 'elimina_id',
+                    id: variable,
+                },
+                dataType: 'json',
+                cache: true,
+            }).done(function (data) {
+                console.log(data);
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus + ': ' + errorThrown);
+            }).always(function (data) {
+
+            });
+        });
+	</script>
+
+{% endblock %}
